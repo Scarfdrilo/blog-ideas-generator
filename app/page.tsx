@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 interface Idea {
   id: string;
   text: string;
+  description: string;
   category: string;
   emoji: string;
   isFavorite: boolean;
@@ -34,6 +35,86 @@ interface CreativityTechnique {
   prompts: string[];
   color: string;
 }
+
+// Plantillas de desarrollo creativo
+const developmentTemplates = {
+  hook: [
+    "¿Sabías que",
+    "Imagina que",
+    "La mayoría de personas cree que",
+    "El secreto mejor guardado sobre",
+    "Lo que nadie te dice sobre",
+    "Después de años investigando",
+    "La ciencia ha demostrado que",
+    "Contrario a la creencia popular,",
+    "En un mundo donde",
+    "¿Qué pasaría si te dijera que",
+  ],
+  problem: [
+    "el problema es que muy pocos saben cómo aprovecharlo",
+    "pero la realidad es más compleja de lo que parece",
+    "sin embargo, hay un obstáculo que pocos mencionan",
+    "y esto está afectando a más personas de las que crees",
+    "pero existe una solución que cambiará tu perspectiva",
+    "y la mayoría está cometiendo errores evitables",
+    "pero hay un enfoque que revoluciona todo",
+  ],
+  solution: [
+    "En este artículo descubrirás las claves para dominarlo",
+    "Aquí te revelo el método paso a paso que realmente funciona",
+    "Te comparto las estrategias que los expertos usan",
+    "Descubre el framework que transformará tu enfoque",
+    "Aprende las técnicas probadas que generan resultados",
+    "Te muestro el camino más efectivo para lograrlo",
+    "Conoce los secretos que marcan la diferencia",
+  ],
+  benefit: [
+    "y alcanzar resultados que nunca imaginaste posibles",
+    "para destacar en un mundo cada vez más competitivo",
+    "y transformar completamente tu perspectiva",
+    "llevando tu potencial al siguiente nivel",
+    "y crear un impacto real en tu vida",
+    "desbloqueando oportunidades que no sabías que existían",
+    "y convertirte en referente de tu área",
+  ],
+};
+
+// Función para generar descripción creativa
+const generateCreativeDescription = (ideaText: string, category: string): string => {
+  const hook = developmentTemplates.hook[Math.floor(Math.random() * developmentTemplates.hook.length)];
+  const problem = developmentTemplates.problem[Math.floor(Math.random() * developmentTemplates.problem.length)];
+  const solution = developmentTemplates.solution[Math.floor(Math.random() * developmentTemplates.solution.length)];
+  const benefit = developmentTemplates.benefit[Math.floor(Math.random() * developmentTemplates.benefit.length)];
+  
+  // Extraer tema clave de la idea
+  const topicWords = ideaText.toLowerCase()
+    .replace(/[¿?¡!.,:\-]/g, '')
+    .split(' ')
+    .filter(w => w.length > 4)
+    .slice(0, 2)
+    .join(' ');
+  
+  const descriptions = [
+    `${hook} ${topicWords} puede cambiar completamente tu forma de ver las cosas? ${problem}. ${solution} ${benefit}.`,
+    
+    `${hook} ${topicWords} tiene el poder de transformar tu vida? La mayoría lo ignora, ${problem}. ${solution}, con ejemplos prácticos y consejos aplicables desde hoy.`,
+    
+    `El mundo de ${topicWords} está lleno de oportunidades ocultas. ${hook} existe un método comprobado que pocos conocen? ${solution} ${benefit}.`,
+    
+    `${hook} dominar ${topicWords} es más accesible de lo que piensas? ${problem}. En esta guía completa, ${solution.toLowerCase()} y te doy las herramientas para empezar hoy mismo.`,
+    
+    `Hablemos de ${topicWords}. ${hook} el 90% de las personas lo hace mal? ${problem}. ${solution}, basado en investigación real y experiencia práctica ${benefit}.`,
+  ];
+  
+  let description = descriptions[Math.floor(Math.random() * descriptions.length)];
+  
+  // Asegurar que no exceda 500 caracteres
+  if (description.length > 500) {
+    description = description.substring(0, 497) + '...';
+  }
+  
+  return description;
+};
 
 // Técnicas de creatividad históricas
 const creativityTechniques: CreativityTechnique[] = [
@@ -293,7 +374,7 @@ const randomWords = [
   'catalizador', 'sinfonía', 'alquimia', 'gravitación', 'metamorfosis', 'resonancia'
 ];
 
-// Base de datos de categorías con plantillas para expandir ideas
+// Base de datos de categorías
 const categories: Category[] = [
   { 
     name: 'Tecnología', 
@@ -305,16 +386,11 @@ const categories: Category[] = [
       'Guía completa para principiantes: {tema}',
       '{tema}: Lo que nadie te cuenta',
       '5 herramientas de {tema} que todo profesional necesita',
-      'El impacto de {tema} en la vida cotidiana',
-      'Tendencias de {tema} para este año',
-      'Errores comunes al trabajar con {tema} y cómo evitarlos',
     ],
     expansions: [
       'Comparativa de las mejores herramientas',
       'Tutorial paso a paso para principiantes',
       'Casos de éxito reales',
-      'El futuro de esta tecnología',
-      'Cómo monetizar tus conocimientos',
     ]
   },
   { 
@@ -326,15 +402,11 @@ const categories: Category[] = [
       '30 días transformando tu vida con {tema}',
       'La guía definitiva de {tema} para personas ocupadas',
       '{tema}: El secreto de las personas exitosas',
-      'Cómo {tema} cambió mi vida (y puede cambiar la tuya)',
-      'Mini hábitos de {tema} que hacen gran diferencia',
     ],
     expansions: [
       'Rutina matutina optimizada',
       'Hábitos de fin de semana',
       'Cómo mantener la motivación',
-      'Historias de transformación personal',
-      'Errores que sabotean tu progreso',
     ]
   },
   { 
@@ -346,15 +418,11 @@ const categories: Category[] = [
       'La verdad sobre {tema} que los expertos no te dicen',
       '{tema}: Guía paso a paso para principiantes',
       '7 estrategias de {tema} para este año',
-      'Errores de {tema} que te están costando dinero',
-      'Cómo automatizar tu {tema}',
     ],
     expansions: [
       'Estrategias para diferentes niveles de ingreso',
       'Herramientas y apps recomendadas',
-      'Casos de estudio reales',
       'Plan de acción de 90 días',
-      'Mitos vs realidad',
     ]
   },
   { 
@@ -366,15 +434,11 @@ const categories: Category[] = [
       'La ciencia detrás de {tema}',
       'Cómo empezar con {tema} sin abrumarte',
       '{tema}: Mitos que debes dejar de creer',
-      'Rutina de {tema} de 15 minutos para ocupados',
-      'Cómo {tema} mejora tu productividad',
     ],
     expansions: [
       'Rutinas para diferentes objetivos',
       'Lo que dice la ciencia más reciente',
       'Errores comunes y cómo corregirlos',
-      'Testimonios y resultados reales',
-      'Guía de equipamiento esencial',
     ]
   },
   { 
@@ -386,15 +450,11 @@ const categories: Category[] = [
       '{tema}: De cero a tus primeros 1000 dólares',
       'Los errores más caros en {tema} (y cómo evitarlos)',
       'Cómo escalar tu {tema} sin perder calidad',
-      '{tema} con bajo presupuesto: Guía práctica',
-      'El framework que uso para {tema}',
     ],
     expansions: [
       'Estrategias de marketing de bajo costo',
       'Cómo conseguir los primeros clientes',
       'Automatización y sistemas',
-      'Historias de emprendedores exitosos',
-      'Recursos y herramientas gratuitas',
     ]
   },
   { 
@@ -406,15 +466,11 @@ const categories: Category[] = [
       'El proceso creativo detrás de {tema}',
       '{tema}: Ejercicios diarios para mejorar',
       'Cómo superar el bloqueo en {tema}',
-      'Herramientas gratuitas para {tema}',
-      'Convierte tu pasión por {tema} en ingresos',
     ],
     expansions: [
       'Técnicas de los profesionales',
       'Retos creativos de 30 días',
       'Cómo desarrollar tu estilo único',
-      'Portafolio y presencia online',
-      'Colaboraciones y comunidad',
     ]
   },
   { 
@@ -425,16 +481,12 @@ const categories: Category[] = [
       'Cómo aprender {tema} de forma autodidacta',
       'Los mejores recursos gratuitos para {tema}',
       '{tema}: Plan de estudio de 3 meses',
-      'Técnicas de memorización para {tema}',
-      'Cómo mantenerse motivado aprendiendo {tema}',
       'De principiante a experto en {tema}',
     ],
     expansions: [
       'Mejores cursos online gratuitos y de pago',
       'Libros esenciales sobre el tema',
-      'Comunidades y grupos de estudio',
       'Proyectos prácticos para aplicar',
-      'Certificaciones que valen la pena',
     ]
   },
   { 
@@ -446,14 +498,10 @@ const categories: Category[] = [
       '{tema}: Lo que aprendí después de años',
       'Señales de alerta en {tema}',
       'Cómo establecer límites saludables en {tema}',
-      '{tema} en la era digital',
-      'Conversaciones difíciles sobre {tema}',
     ],
     expansions: [
       'Ejercicios prácticos de comunicación',
       'Libros recomendados sobre el tema',
-      'Cuándo buscar ayuda profesional',
-      'Historias personales y lecciones',
       'Preguntas para reflexionar',
     ]
   },
@@ -468,9 +516,7 @@ const predefinedIdeas: Record<string, string[]> = {
     '5 apps que todo emprendedor necesita',
     'El futuro de la realidad virtual: ¿Estamos listos?',
     'Ciberseguridad: Protege tu información personal',
-    'Comparativa de los mejores laptops para estudiantes',
     'Automatización del hogar: Por dónde empezar',
-    'Las mejores extensiones de Chrome para productividad',
     'No-code: Crea apps sin saber programar',
   ],
   'Estilo de vida': [
@@ -478,12 +524,10 @@ const predefinedIdeas: Record<string, string[]> = {
     'Cómo crear una rutina de autocuidado efectiva',
     'Minimalismo: Menos es más',
     'Tips para ser más productivo trabajando desde casa',
-    'Cómo organizar tu espacio para mejorar tu mente',
     '30 días para cambiar tu vida: Un reto personal',
     'El arte de decir no: Establecer límites saludables',
     'Digital detox: Una semana sin redes sociales',
     'Journaling: El hábito que transforma',
-    'Cómo crear tu morning routine perfecta',
   ],
   'Finanzas': [
     'Cómo crear tu primer presupuesto mensual',
@@ -493,9 +537,7 @@ const predefinedIdeas: Record<string, string[]> = {
     'Ahorra para tu retiro aunque ganes poco',
     'Cómo salir de deudas en 12 meses',
     'El método 50/30/20 explicado',
-    'Fondo de emergencia: Cuánto y cómo',
     'Side hustles que puedes empezar hoy',
-    'Negociar tu salario: Guía paso a paso',
   ],
   'Salud y Bienestar': [
     'Ejercicios de 15 minutos para personas ocupadas',
@@ -505,21 +547,17 @@ const predefinedIdeas: Record<string, string[]> = {
     'Recetas saludables que puedes hacer en 20 minutos',
     'Salud mental: Señales de que necesitas un descanso',
     'El poder de caminar: Beneficios de 30 minutos diarios',
-    'Meal prep: Organiza tus comidas de la semana',
     'Yoga en casa: Rutina para principiantes',
-    'Hidratación: Más que solo agua',
   ],
   'Emprendimiento': [
     'Cómo validar tu idea de negocio en una semana',
-    'Marketing digital para emprendedores con bajo presupuesto',
+    'Marketing digital con bajo presupuesto',
     'Historias de fracasos que llevaron al éxito',
     'Cómo conseguir tus primeros 100 clientes',
     'Herramientas gratuitas para lanzar tu startup',
-    'El arte del pitch: Presenta tu idea en 60 segundos',
     'Personal branding: Construye tu marca personal',
     'De empleado a emprendedor: La transición',
     'MVP: Lanza rápido, aprende rápido',
-    'Networking efectivo para introvertidos',
   ],
   'Creatividad': [
     'Cómo superar el bloqueo creativo',
@@ -527,8 +565,6 @@ const predefinedIdeas: Record<string, string[]> = {
     'El proceso creativo de artistas famosos',
     'Cómo encontrar tu estilo único',
     'Convierte tu hobby en un negocio rentable',
-    'Herramientas digitales para creativos',
-    'El poder del sketch diario',
     'Storytelling: El arte de contar historias',
     'Creatividad bajo presión: Técnicas que funcionan',
     'Colaborar con otros creativos',
@@ -539,10 +575,8 @@ const predefinedIdeas: Record<string, string[]> = {
     'Técnicas de estudio basadas en ciencia',
     'Aprender un idioma en 6 meses',
     'Libros que todo profesional debe leer',
-    'Cómo tomar notas efectivamente',
     'El método Feynman para entender cualquier cosa',
     'Podcasts educativos que valen tu tiempo',
-    'Certificaciones online que impulsan tu carrera',
     'Aprendizaje continuo: Mentalidad de crecimiento',
   ],
   'Relaciones': [
@@ -552,17 +586,14 @@ const predefinedIdeas: Record<string, string[]> = {
     'Networking genuino: Conexiones que importan',
     'El lenguaje del amor: Entendiendo a tu pareja',
     'Conflictos saludables: Discutir sin destruir',
-    'Amistades tóxicas: Cuándo alejarse',
     'Relaciones a distancia que funcionan',
     'Comunicación no violenta en práctica',
-    'Reconectar con viejos amigos',
   ],
 };
 
-// Función para generar ID único
+// Funciones auxiliares
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
-// Función para detectar categoría basada en texto
 const detectCategory = (text: string): Category => {
   const lowerText = text.toLowerCase();
   for (const category of categories) {
@@ -575,7 +606,6 @@ const detectCategory = (text: string): Category => {
   return categories[Math.floor(Math.random() * categories.length)];
 };
 
-// Función para extraer el tema principal de una idea
 const extractTopic = (text: string): string => {
   const words = text.toLowerCase()
     .replace(/[¿?¡!.,]/g, '')
@@ -586,23 +616,30 @@ const extractTopic = (text: string): string => {
   return words.slice(0, 3).join(' ') || text.slice(0, 20);
 };
 
-// Función para generar ideas expandidas basadas en una idea del usuario
-const generateExpandedIdeas = (userIdea: string): string[] => {
+const generateExpandedIdeas = (userIdea: string): { text: string; description: string }[] => {
   const category = detectCategory(userIdea);
   const topic = extractTopic(userIdea);
-  const expandedIdeas: string[] = [];
+  const expandedIdeas: { text: string; description: string }[] = [];
   
   const shuffledTemplates = [...category.templates].sort(() => Math.random() - 0.5);
   for (let i = 0; i < 3; i++) {
     if (shuffledTemplates[i]) {
-      expandedIdeas.push(shuffledTemplates[i].replace('{tema}', topic));
+      const ideaText = shuffledTemplates[i].replace('{tema}', topic);
+      expandedIdeas.push({
+        text: ideaText,
+        description: generateCreativeDescription(ideaText, category.name),
+      });
     }
   }
   
   const shuffledExpansions = [...category.expansions].sort(() => Math.random() - 0.5);
   for (let i = 0; i < 2; i++) {
     if (shuffledExpansions[i]) {
-      expandedIdeas.push(`${topic}: ${shuffledExpansions[i]}`);
+      const ideaText = `${topic}: ${shuffledExpansions[i]}`;
+      expandedIdeas.push({
+        text: ideaText,
+        description: generateCreativeDescription(ideaText, category.name),
+      });
     }
   }
   
@@ -613,19 +650,20 @@ export default function Home() {
   const [ideas, setIdeas] = useState<Idea[]>([]);
   const [userInput, setUserInput] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [expandedIdeas, setExpandedIdeas] = useState<string[]>([]);
+  const [expandedIdeas, setExpandedIdeas] = useState<{ text: string; description: string }[]>([]);
   const [showExpanded, setShowExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState<'generate' | 'my-ideas' | 'favorites' | 'techniques'>('generate');
   const [searchTerm, setSearchTerm] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedTechnique, setSelectedTechnique] = useState<CreativityTechnique | null>(null);
   const [techniqueInput, setTechniqueInput] = useState('');
-  const [generatedFromTechnique, setGeneratedFromTechnique] = useState<string[]>([]);
+  const [generatedFromTechnique, setGeneratedFromTechnique] = useState<{ text: string; description: string }[]>([]);
   const [currentRandomWord, setCurrentRandomWord] = useState('');
+  const [expandedIdeaId, setExpandedIdeaId] = useState<string | null>(null);
 
-  // Cargar ideas guardadas del localStorage
+  // Cargar ideas guardadas
   useEffect(() => {
-    const saved = localStorage.getItem('blog-ideas');
+    const saved = localStorage.getItem('blog-ideas-v2');
     if (saved) {
       const parsed = JSON.parse(saved);
       setIdeas(parsed.map((idea: Idea) => ({
@@ -635,14 +673,14 @@ export default function Home() {
     }
   }, []);
 
-  // Guardar ideas en localStorage
+  // Guardar ideas
   useEffect(() => {
     if (ideas.length > 0) {
-      localStorage.setItem('blog-ideas', JSON.stringify(ideas));
+      localStorage.setItem('blog-ideas-v2', JSON.stringify(ideas));
     }
   }, [ideas]);
 
-  // Generar idea aleatoria de categoría
+  // Generar idea aleatoria
   const generateRandomIdea = (categoryName?: string) => {
     setIsGenerating(true);
     setTimeout(() => {
@@ -657,6 +695,7 @@ export default function Home() {
         const newIdea: Idea = {
           id: generateId(),
           text: randomIdea,
+          description: generateCreativeDescription(randomIdea, category.name),
           category: category.name,
           emoji: category.emoji,
           isFavorite: false,
@@ -665,12 +704,13 @@ export default function Home() {
         };
         setIdeas(prev => [newIdea, ...prev]);
         setSelectedCategory(category.name);
+        setExpandedIdeaId(newIdea.id);
       }
       setIsGenerating(false);
     }, 500);
   };
 
-  // Agregar idea del usuario y generar expansiones
+  // Agregar idea del usuario
   const handleUserIdeaSubmit = () => {
     if (!userInput.trim()) return;
     
@@ -680,6 +720,7 @@ export default function Home() {
     const newIdea: Idea = {
       id: generateId(),
       text: userInput,
+      description: generateCreativeDescription(userInput, category.name),
       category: category.name,
       emoji: category.emoji,
       isFavorite: false,
@@ -698,12 +739,13 @@ export default function Home() {
     }, 800);
   };
 
-  // Agregar idea expandida a la lista
-  const addExpandedIdea = (ideaText: string, technique?: string) => {
+  // Agregar idea expandida
+  const addExpandedIdea = (ideaText: string, ideaDescription: string, technique?: string) => {
     const category = detectCategory(ideaText);
     const newIdea: Idea = {
       id: generateId(),
       text: ideaText,
+      description: ideaDescription,
       category: category.name,
       emoji: category.emoji,
       isFavorite: false,
@@ -726,7 +768,7 @@ export default function Home() {
     setIdeas(prev => prev.filter(idea => idea.id !== id));
   };
 
-  // Generar ideas usando técnica de creatividad
+  // Generar con técnica
   const generateWithTechnique = () => {
     if (!selectedTechnique || !techniqueInput.trim()) return;
     
@@ -734,15 +776,19 @@ export default function Home() {
     const topic = techniqueInput;
     
     setTimeout(() => {
-      const generatedIdeas = selectedTechnique.prompts.map(prompt => 
-        prompt.replace(/\[.*?\]/g, topic)
-      );
+      const generatedIdeas = selectedTechnique.prompts.map(prompt => {
+        const text = prompt.replace(/\[.*?\]/g, topic);
+        return {
+          text,
+          description: generateCreativeDescription(text, 'Creatividad'),
+        };
+      });
       setGeneratedFromTechnique(generatedIdeas);
       setIsGenerating(false);
     }, 800);
   };
 
-  // Generar palabra aleatoria para estímulo
+  // Palabra aleatoria
   const generateRandomWord = () => {
     const word = randomWords[Math.floor(Math.random() * randomWords.length)];
     setCurrentRandomWord(word);
@@ -775,9 +821,9 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3">
-                💡 Blog Ideas Generator
+                💡 Blog Ideas Generator Pro
               </h1>
-              <p className="text-white/70 mt-1">Tu asistente creativo con técnicas de los grandes genios</p>
+              <p className="text-white/70 mt-1">Ideas + Desarrollo creativo de hasta 500 caracteres</p>
             </div>
             <div className="flex gap-4 text-sm">
               <div className="bg-white/10 rounded-lg px-4 py-2 text-center">
@@ -798,7 +844,7 @@ export default function Home() {
       </header>
 
       <div className="max-w-6xl mx-auto px-4 py-6">
-        {/* Navigation Tabs */}
+        {/* Navigation */}
         <div className="flex flex-wrap gap-2 mb-6">
           <button
             onClick={() => setActiveTab('generate')}
@@ -845,10 +891,10 @@ export default function Home() {
         {/* Tab: Generador */}
         {(activeTab === 'generate' || activeTab === 'my-ideas' || activeTab === 'favorites') && (
           <>
-            {/* Input de usuario */}
+            {/* Input */}
             <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-6 mb-6">
               <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                ✍️ Escribe tu idea y te ayudo a expandirla
+                ✍️ Escribe tu idea y te la desarrollo creativamente
               </h2>
               <div className="flex flex-col md:flex-row gap-3">
                 <input
@@ -862,17 +908,9 @@ export default function Home() {
                 <button
                   onClick={handleUserIdeaSubmit}
                   disabled={!userInput.trim() || isGenerating}
-                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:opacity-90 transition-all disabled:opacity-50"
                 >
-                  {isGenerating ? (
-                    <>
-                      <span className="animate-spin">⚙️</span> Generando...
-                    </>
-                  ) : (
-                    <>
-                      🚀 Generar Ideas
-                    </>
-                  )}
+                  {isGenerating ? '⚙️ Generando...' : '🚀 Generar Ideas'}
                 </button>
               </div>
               
@@ -880,29 +918,25 @@ export default function Home() {
               {showExpanded && expandedIdeas.length > 0 && (
                 <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-bold text-purple-800 flex items-center gap-2">
-                      ✨ Ideas generadas a partir de tu concepto:
-                    </h3>
-                    <button
-                      onClick={() => setShowExpanded(false)}
-                      className="text-gray-400 hover:text-gray-600"
-                    >
-                      ✕
-                    </button>
+                    <h3 className="font-bold text-purple-800">✨ Ideas generadas con desarrollo:</h3>
+                    <button onClick={() => setShowExpanded(false)} className="text-gray-400 hover:text-gray-600">✕</button>
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     {expandedIdeas.map((idea, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-all"
-                      >
-                        <span className="text-gray-700">{idea}</span>
-                        <button
-                          onClick={() => addExpandedIdea(idea)}
-                          className="ml-3 px-3 py-1 bg-green-500 text-white text-sm rounded-full hover:bg-green-600 transition-all"
-                        >
-                          + Agregar
-                        </button>
+                      <div key={index} className="bg-white p-4 rounded-lg shadow-sm">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1">
+                            <p className="font-semibold text-gray-800">{idea.text}</p>
+                            <p className="text-sm text-gray-600 mt-2 leading-relaxed">{idea.description}</p>
+                            <p className="text-xs text-gray-400 mt-1">{idea.description.length} caracteres</p>
+                          </div>
+                          <button
+                            onClick={() => addExpandedIdea(idea.text, idea.description)}
+                            className="px-3 py-1 bg-green-500 text-white text-sm rounded-full hover:bg-green-600"
+                          >
+                            + Agregar
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -910,18 +944,16 @@ export default function Home() {
               )}
             </div>
 
-            {/* Generador rápido por categoría */}
+            {/* Generador por categoría */}
             <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-6 mb-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                🎲 Generador rápido por categoría
-              </h2>
+              <h2 className="text-xl font-bold text-gray-800 mb-4">🎲 Generador rápido</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                 {categories.map((category) => (
                   <button
                     key={category.name}
                     onClick={() => generateRandomIdea(category.name)}
                     disabled={isGenerating}
-                    className={`p-4 rounded-xl text-left transition-all transform hover:scale-105 hover:shadow-lg ${
+                    className={`p-4 rounded-xl text-left transition-all transform hover:scale-105 ${
                       selectedCategory === category.name
                         ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
                         : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
@@ -936,7 +968,7 @@ export default function Home() {
                 <button
                   onClick={() => generateRandomIdea()}
                   disabled={isGenerating}
-                  className="px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50"
+                  className="px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                 >
                   {isGenerating ? '⚙️ Generando...' : '🎰 ¡Sorpréndeme!'}
                 </button>
@@ -945,7 +977,7 @@ export default function Home() {
 
             {/* Lista de ideas */}
             <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-6">
-              {/* Búsqueda y filtros */}
+              {/* Filtros */}
               <div className="flex flex-col md:flex-row gap-3 mb-4">
                 <div className="flex-1 relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
@@ -960,7 +992,7 @@ export default function Home() {
                 <select
                   value={selectedCategory || ''}
                   onChange={(e) => setSelectedCategory(e.target.value || null)}
-                  className="px-4 py-2 rounded-lg border border-gray-200 focus:border-purple-500 focus:outline-none bg-white"
+                  className="px-4 py-2 rounded-lg border border-gray-200 bg-white"
                 >
                   <option value="">Todas las categorías</option>
                   {categories.map(cat => (
@@ -969,55 +1001,57 @@ export default function Home() {
                 </select>
               </div>
 
-              {/* Lista de ideas */}
+              {/* Ideas */}
               {filteredIdeas.length > 0 ? (
-                <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2">
+                <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2">
                   {filteredIdeas.map((idea) => (
                     <div
                       key={idea.id}
-                      className={`p-4 rounded-xl border-2 transition-all hover:shadow-md ${
-                        idea.isUserIdea 
-                          ? 'bg-green-50 border-green-200' 
-                          : 'bg-gray-50 border-gray-200'
+                      className={`p-4 rounded-xl border-2 transition-all ${
+                        idea.isUserIdea ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'
                       } ${idea.isFavorite ? 'ring-2 ring-yellow-400' : ''}`}
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <div className="flex items-center gap-2 mb-2 flex-wrap">
                             <span className="text-lg">{idea.emoji}</span>
-                            <span className="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full">
-                              {idea.category}
-                            </span>
-                            {idea.isUserIdea && (
-                              <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full">
-                                Tu idea
-                              </span>
-                            )}
-                            {idea.technique && (
-                              <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full">
-                                {idea.technique}
-                              </span>
+                            <span className="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full">{idea.category}</span>
+                            {idea.isUserIdea && <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full">Tu idea</span>}
+                            {idea.technique && <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full">{idea.technique}</span>}
+                          </div>
+                          <p className="text-gray-800 font-semibold text-lg">{idea.text}</p>
+                          
+                          {/* Desarrollo creativo */}
+                          <div className="mt-3">
+                            <button
+                              onClick={() => setExpandedIdeaId(expandedIdeaId === idea.id ? null : idea.id)}
+                              className="text-sm text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1"
+                            >
+                              {expandedIdeaId === idea.id ? '▼' : '▶'} Ver desarrollo creativo ({idea.description.length} caracteres)
+                            </button>
+                            {expandedIdeaId === idea.id && (
+                              <div className="mt-2 p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-100">
+                                <p className="text-gray-700 leading-relaxed text-sm">{idea.description}</p>
+                              </div>
                             )}
                           </div>
-                          <p className="text-gray-800 font-medium">{idea.text}</p>
-                          <p className="text-xs text-gray-400 mt-1">
+                          
+                          <p className="text-xs text-gray-400 mt-2">
                             {idea.createdAt.toLocaleDateString()} {idea.createdAt.toLocaleTimeString()}
                           </p>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col gap-2">
                           <button
                             onClick={() => toggleFavorite(idea.id)}
                             className={`p-2 rounded-lg transition-all ${
-                              idea.isFavorite 
-                                ? 'bg-yellow-100 text-yellow-600' 
-                                : 'bg-gray-100 text-gray-400 hover:text-yellow-500'
+                              idea.isFavorite ? 'bg-yellow-100 text-yellow-600' : 'bg-gray-100 text-gray-400 hover:text-yellow-500'
                             }`}
                           >
                             {idea.isFavorite ? '⭐' : '☆'}
                           </button>
                           <button
                             onClick={() => deleteIdea(idea.id)}
-                            className="p-2 rounded-lg bg-gray-100 text-gray-400 hover:bg-red-100 hover:text-red-500 transition-all"
+                            className="p-2 rounded-lg bg-gray-100 text-gray-400 hover:bg-red-100 hover:text-red-500"
                           >
                             🗑️
                           </button>
@@ -1037,21 +1071,14 @@ export default function Home() {
           </>
         )}
 
-        {/* Tab: Técnicas Creativas */}
+        {/* Tab: Técnicas */}
         {activeTab === 'techniques' && (
           <>
-            {/* Intro */}
             <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-6 mb-6">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
-                🧠 Técnicas de Creatividad de los Grandes Genios
-              </h2>
-              <p className="text-gray-600">
-                Aprende y aplica las técnicas más poderosas de creatividad desarrolladas por los mejores pensadores de la historia.
-                Selecciona una técnica, escribe tu tema y genera ideas únicas.
-              </p>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">🧠 Técnicas de Creatividad</h2>
+              <p className="text-gray-600">Aplica técnicas de los grandes genios y obtén desarrollo creativo de cada idea.</p>
             </div>
 
-            {/* Grid de técnicas */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               {creativityTechniques.map((technique) => (
                 <div
@@ -1059,9 +1086,7 @@ export default function Home() {
                   onClick={() => {
                     setSelectedTechnique(technique);
                     setGeneratedFromTechnique([]);
-                    if (technique.id === 'random-input') {
-                      generateRandomWord();
-                    }
+                    if (technique.id === 'random-input') generateRandomWord();
                   }}
                   className={`bg-white/95 backdrop-blur rounded-2xl shadow-lg p-5 cursor-pointer transition-all hover:shadow-xl hover:scale-[1.02] ${
                     selectedTechnique?.id === technique.id ? 'ring-4 ring-purple-500' : ''
@@ -1081,7 +1106,6 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Técnica seleccionada - Detalle */}
             {selectedTechnique && (
               <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-6 mb-6">
                 <div className="flex items-center gap-4 mb-6">
@@ -1090,13 +1114,12 @@ export default function Home() {
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold text-gray-800">{selectedTechnique.name}</h2>
-                    <p className="text-gray-500">{selectedTechnique.creator} • {selectedTechnique.year}</p>
+                    <p className="text-gray-500">{selectedTechnique.creator}</p>
                   </div>
                 </div>
 
                 <p className="text-gray-700 mb-6">{selectedTechnique.description}</p>
 
-                {/* Cómo usar */}
                 <div className="bg-gray-50 rounded-xl p-4 mb-6">
                   <h3 className="font-bold text-gray-800 mb-3">📋 Cómo usarla:</h3>
                   <ul className="space-y-2">
@@ -1109,72 +1132,57 @@ export default function Home() {
                   </ul>
                 </div>
 
-                {/* Ejercicio */}
-                <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4 mb-6 border border-purple-200">
-                  <h3 className="font-bold text-purple-800 mb-2">🎯 Ejercicio:</h3>
-                  <p className="text-purple-700">{selectedTechnique.exercise}</p>
-                </div>
-
-                {/* Palabra aleatoria para estímulo */}
                 {selectedTechnique.id === 'random-input' && (
-                  <div className="bg-gradient-to-r from-violet-100 to-purple-100 rounded-xl p-4 mb-6 border border-violet-200">
+                  <div className="bg-violet-100 rounded-xl p-4 mb-6 border border-violet-200">
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="font-bold text-violet-800 mb-1">🎲 Tu palabra aleatoria:</h3>
                         <p className="text-3xl font-bold text-violet-600">{currentRandomWord || 'Click para generar'}</p>
                       </div>
-                      <button
-                        onClick={generateRandomWord}
-                        className="px-4 py-2 bg-violet-500 text-white rounded-lg hover:bg-violet-600 transition-all"
-                      >
+                      <button onClick={generateRandomWord} className="px-4 py-2 bg-violet-500 text-white rounded-lg hover:bg-violet-600">
                         Nueva palabra
                       </button>
                     </div>
-                    {currentRandomWord && (
-                      <p className="text-sm text-violet-600 mt-2">
-                        💡 Ahora conecta "{currentRandomWord}" con tu tema de blog
-                      </p>
-                    )}
                   </div>
                 )}
 
-                {/* Generador con técnica */}
                 <div className="border-t border-gray-200 pt-6">
-                  <h3 className="font-bold text-gray-800 mb-4">✨ Genera ideas con esta técnica:</h3>
+                  <h3 className="font-bold text-gray-800 mb-4">✨ Genera ideas con desarrollo creativo:</h3>
                   <div className="flex flex-col md:flex-row gap-3 mb-4">
                     <input
                       type="text"
                       value={techniqueInput}
                       onChange={(e) => setTechniqueInput(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && generateWithTechnique()}
-                      placeholder="Escribe tu tema (ej: productividad, finanzas, fitness...)"
+                      placeholder="Escribe tu tema..."
                       className="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-gray-800"
                     />
                     <button
                       onClick={generateWithTechnique}
                       disabled={!techniqueInput.trim() || isGenerating}
-                      className={`px-6 py-3 bg-gradient-to-r ${selectedTechnique.color} text-white font-bold rounded-xl hover:opacity-90 transition-all disabled:opacity-50`}
+                      className={`px-6 py-3 bg-gradient-to-r ${selectedTechnique.color} text-white font-bold rounded-xl hover:opacity-90 disabled:opacity-50`}
                     >
                       {isGenerating ? '⚙️ Generando...' : '🚀 Aplicar Técnica'}
                     </button>
                   </div>
 
-                  {/* Ideas generadas con la técnica */}
                   {generatedFromTechnique.length > 0 && (
-                    <div className="space-y-2 mt-4">
-                      <h4 className="font-medium text-gray-700 mb-2">Ideas generadas:</h4>
+                    <div className="space-y-3 mt-4">
                       {generatedFromTechnique.map((idea, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center justify-between bg-gray-50 p-3 rounded-lg border border-gray-200 hover:shadow-md transition-all"
-                        >
-                          <span className="text-gray-700">{idea}</span>
-                          <button
-                            onClick={() => addExpandedIdea(idea, selectedTechnique.name)}
-                            className="ml-3 px-3 py-1 bg-green-500 text-white text-sm rounded-full hover:bg-green-600 transition-all"
-                          >
-                            + Guardar
-                          </button>
+                        <div key={index} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex-1">
+                              <p className="font-semibold text-gray-800">{idea.text}</p>
+                              <p className="text-sm text-gray-600 mt-2 leading-relaxed">{idea.description}</p>
+                              <p className="text-xs text-gray-400 mt-1">{idea.description.length} caracteres</p>
+                            </div>
+                            <button
+                              onClick={() => addExpandedIdea(idea.text, idea.description, selectedTechnique.name)}
+                              className="px-3 py-1 bg-green-500 text-white text-sm rounded-full hover:bg-green-600"
+                            >
+                              + Guardar
+                            </button>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -1183,19 +1191,13 @@ export default function Home() {
               </div>
             )}
 
-            {/* Tip */}
             <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl shadow-lg p-6 text-white">
               <h3 className="font-bold text-xl mb-2">💡 Pro Tip</h3>
-              <p>
-                Combina múltiples técnicas para resultados más creativos. Por ejemplo, usa los <strong>6 Sombreros</strong> para 
-                analizar tu tema desde diferentes ángulos, luego aplica <strong>SCAMPER</strong> a tus mejores ideas, 
-                y finalmente usa el <strong>Brainstorm Inverso</strong> para encontrar perspectivas únicas.
-              </p>
+              <p>Cada idea incluye un desarrollo creativo de hasta 500 caracteres que puedes usar como introducción o gancho para tu blog.</p>
             </div>
           </>
         )}
 
-        {/* Footer */}
         <p className="text-center text-white/60 mt-8 pb-8">
           Hecho con 💜 en VibeCoding Bootcamp
         </p>

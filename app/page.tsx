@@ -35,6 +35,17 @@ interface CreativityTechnique {
   color: string;
 }
 
+interface ReflectionFramework {
+  id: string;
+  name: string;
+  emoji: string;
+  creator: string;
+  usedBy: string[];
+  description: string;
+  color: string;
+  questions: string[];
+}
+
 // Función para generar descripción creativa (hasta 500 caracteres)
 const generateCreativeDescription = (ideaText: string): string => {
   const hooks = [
@@ -82,6 +93,200 @@ const generateCreativeDescription = (ideaText: string): string => {
   
   return description;
 };
+
+// 🧠 FRAMEWORKS DE REFLEXIÓN PARA GENIOS
+const reflectionFrameworks: ReflectionFramework[] = [
+  {
+    id: 'first-principles',
+    name: 'First Principles (Primeros Principios)',
+    emoji: '🚀',
+    creator: 'Aristóteles / Elon Musk',
+    usedBy: ['Elon Musk', 'Jeff Bezos', 'Charlie Munger'],
+    description: 'Descompón todo hasta sus verdades fundamentales y reconstruye desde cero. No asumas nada. Cuestiona cada suposición.',
+    color: 'from-red-600 to-orange-500',
+    questions: [
+      '¿Cuáles son las verdades fundamentales e incuestionables sobre TEMA?',
+      '¿Qué suposiciones estoy dando por hecho que podrían ser falsas?',
+      'Si empezara desde cero, ¿cómo abordaría TEMA?',
+      '¿Por qué se hace así? ¿Es la única forma o simplemente la tradicional?',
+      '¿Qué es físicamente posible vs qué es solo convención?',
+      'Si no existiera nada previo sobre TEMA, ¿cómo lo inventaría?',
+      '¿Qué limitaciones son reales y cuáles son imaginarias?',
+      '¿Cuál es el problema REAL que estoy tratando de resolver?',
+    ],
+  },
+  {
+    id: 'inversion',
+    name: 'Pensamiento Inverso',
+    emoji: '🔄',
+    creator: 'Carl Jacobi / Charlie Munger',
+    usedBy: ['Charlie Munger', 'Warren Buffett', 'Naval Ravikant'],
+    description: 'En lugar de pensar cómo tener éxito, piensa en todas las formas de fracasar y evítalas. "Invierte, siempre invierte."',
+    color: 'from-purple-600 to-indigo-500',
+    questions: [
+      '¿Cómo podría garantizar el FRACASO total en TEMA?',
+      '¿Qué haría si quisiera arruinar completamente esto?',
+      '¿Cuáles son los errores más estúpidos que podría cometer?',
+      '¿Qué hacen las personas que fracasan consistentemente en TEMA?',
+      'Si mi enemigo quisiera sabotearme en TEMA, ¿qué haría?',
+      '¿Qué es lo opuesto del consejo convencional y por qué podría funcionar?',
+      '¿Qué debo evitar a toda costa?',
+      '¿Cuál es la peor decisión posible que podría tomar?',
+    ],
+  },
+  {
+    id: 'second-order',
+    name: 'Pensamiento de Segundo Orden',
+    emoji: '♟️',
+    creator: 'Howard Marks',
+    usedBy: ['Howard Marks', 'Ray Dalio', 'George Soros'],
+    description: 'No solo pienses en las consecuencias inmediatas, sino en las consecuencias de las consecuencias. Piensa 3 movimientos adelante.',
+    color: 'from-blue-600 to-cyan-500',
+    questions: [
+      '¿Y luego qué? ¿Cuál es la consecuencia de esta consecuencia?',
+      '¿Cómo reaccionarán otros a mi acción sobre TEMA?',
+      '¿Qué efectos secundarios no estoy considerando?',
+      'En 5 años, ¿cómo veré esta decisión sobre TEMA?',
+      '¿Qué incentivos estoy creando sin darme cuenta?',
+      '¿Cuál es el costo de oportunidad real?',
+      '¿Qué pasará cuando todos hagan lo mismo?',
+      '¿Estoy resolviendo el problema o solo moviéndolo?',
+    ],
+  },
+  {
+    id: 'regret-minimization',
+    name: 'Minimización del Arrepentimiento',
+    emoji: '👴',
+    creator: 'Jeff Bezos',
+    usedBy: ['Jeff Bezos', 'Tim Ferriss', 'Derek Sivers'],
+    description: 'Proyéctate a los 80 años. ¿De qué te arrepentirías de NO haber hecho? Las decisiones correctas minimizan el arrepentimiento futuro.',
+    color: 'from-amber-600 to-yellow-500',
+    questions: [
+      'A los 80 años, ¿me arrepentiré de no haber explorado TEMA?',
+      '¿Qué me gustaría haberme atrevido a hacer respecto a TEMA?',
+      '¿Estoy evitando TEMA por miedo o por razones lógicas?',
+      '¿Qué historia quiero contar sobre cómo abordé TEMA?',
+      '¿El fracaso en TEMA sería una buena historia o una tragedia?',
+      '¿Qué riesgos estoy evitando que realmente valen la pena?',
+      '¿Preferiría fallar intentando o nunca haberlo intentado?',
+      '¿Qué diría mi yo del futuro sobre mi decisión actual?',
+    ],
+  },
+  {
+    id: 'steel-man',
+    name: 'Steel Man (Argumento de Acero)',
+    emoji: '🛡️',
+    creator: 'Filosofía Analítica',
+    usedBy: ['Sam Harris', 'Jordan Peterson', 'Naval Ravikant'],
+    description: 'En lugar de atacar la versión débil del argumento contrario, construye la MEJOR versión posible y responde a esa.',
+    color: 'from-gray-600 to-slate-500',
+    questions: [
+      '¿Cuál es el MEJOR argumento contra mi posición sobre TEMA?',
+      '¿Por qué personas inteligentes piensan diferente sobre TEMA?',
+      '¿Qué evidencia ignoraría si estuviera equivocado?',
+      '¿Cómo defendería la posición opuesta si tuviera que hacerlo?',
+      '¿Qué saben mis críticos que yo no sé?',
+      '¿Qué tendría que ser verdad para que yo esté equivocado?',
+      '¿Cuáles son las limitaciones de mi perspectiva sobre TEMA?',
+      '¿Qué me estoy perdiendo por mi sesgo de confirmación?',
+    ],
+  },
+  {
+    id: 'lateral-thinking',
+    name: 'Pensamiento Lateral',
+    emoji: '🌀',
+    creator: 'Edward de Bono',
+    usedBy: ['Steve Jobs', 'Richard Branson', 'Creativos de Pixar'],
+    description: 'Escapa del pensamiento lineal. Busca soluciones no obvias, cambia el marco de referencia, haz conexiones inesperadas.',
+    color: 'from-pink-600 to-rose-500',
+    questions: [
+      '¿Y si el problema de TEMA fuera en realidad una oportunidad?',
+      '¿Qué pasaría si hiciera exactamente lo contrario?',
+      '¿Cómo resolvería TEMA un niño de 5 años?',
+      '¿Qué industria completamente diferente ya resolvió algo similar?',
+      '¿Cuál es la solución más ridícula e imposible?',
+      '¿Qué recurso no convencional podría usar para TEMA?',
+      '¿Cómo sería TEMA en un universo paralelo?',
+      '¿Qué reglas estoy siguiendo que nadie me obligó a seguir?',
+    ],
+  },
+  {
+    id: 'premortem',
+    name: 'Pre-Mortem',
+    emoji: '⚰️',
+    creator: 'Gary Klein',
+    usedBy: ['Daniel Kahneman', 'Annie Duke', 'Tim Ferriss'],
+    description: 'Imagina que el proyecto ya fracasó. Ahora explica por qué. Esta técnica revela riesgos ocultos antes de que ocurran.',
+    color: 'from-emerald-600 to-teal-500',
+    questions: [
+      'Es un año después y TEMA fue un fracaso total. ¿Qué salió mal?',
+      '¿Cuáles son las señales de advertencia que estoy ignorando?',
+      '¿Qué factor externo podría destruir todo mi plan?',
+      '¿Dónde estoy siendo demasiado optimista?',
+      '¿Qué depende de que todo salga perfecto (y nunca sale)?',
+      '¿Quién o qué podría sabotear esto sin querer?',
+      '¿Cuál es mi punto ciego más grande?',
+      '¿Qué asumo que seguirá igual pero podría cambiar?',
+    ],
+  },
+  {
+    id: '10x-thinking',
+    name: '10x Thinking (Pensamiento Moonshot)',
+    emoji: '🌙',
+    creator: 'Google X / Astro Teller',
+    usedBy: ['Larry Page', 'Elon Musk', 'Peter Thiel'],
+    description: 'No pienses en mejorar 10%, piensa en mejorar 10X. Los saltos grandes a menudo son más fáciles porque la competencia desaparece.',
+    color: 'from-violet-600 to-purple-500',
+    questions: [
+      '¿Cómo sería TEMA si fuera 10 veces mejor, no 10% mejor?',
+      '¿Qué tendría que cambiar radicalmente para un salto 10x?',
+      '¿Por qué NO estoy pensando más grande sobre TEMA?',
+      '¿Qué tecnología podría hacer esto trivialmente fácil?',
+      '¿Cuál es la versión de TEMA que parece ciencia ficción?',
+      '¿Qué haría si el fracaso fuera imposible?',
+      '¿Cómo abordaría esto alguien con recursos ilimitados?',
+      '¿Qué problema más grande podría resolver si resuelvo TEMA?',
+    ],
+  },
+  {
+    id: 'via-negativa',
+    name: 'Vía Negativa (Sustracción)',
+    emoji: '✂️',
+    creator: 'Nassim Taleb',
+    usedBy: ['Nassim Taleb', 'Naval Ravikant', 'Tim Ferriss'],
+    description: 'Menos es más. En lugar de agregar, quita. El conocimiento crece más por lo que eliminamos que por lo que añadimos.',
+    color: 'from-stone-600 to-neutral-500',
+    questions: [
+      '¿Qué puedo ELIMINAR de TEMA para mejorarlo?',
+      '¿Qué complejidad innecesaria estoy agregando?',
+      '¿Qué dejaría de hacer si fuera más inteligente?',
+      '¿Cuál es el 20% que produce el 80% de los resultados?',
+      '¿Qué "mejores prácticas" son en realidad lastre?',
+      '¿Qué haría si solo pudiera dedicar 2 horas a TEMA?',
+      '¿Qué consejo convencional debería ignorar?',
+      '¿Qué drama, ruido o distracción puedo cortar?',
+    ],
+  },
+  {
+    id: 'socratic-deep',
+    name: 'Cuestionamiento Socrático Profundo',
+    emoji: '🏛️',
+    creator: 'Sócrates',
+    usedBy: ['Filósofos', 'Coaches ejecutivos', 'Terapeutas CBT'],
+    description: 'Preguntas que revelan suposiciones ocultas, clarifican conceptos y exponen contradicciones en el pensamiento.',
+    color: 'from-amber-700 to-orange-600',
+    questions: [
+      '¿Qué quiero decir exactamente cuando hablo de TEMA?',
+      '¿Cómo llegué a esta creencia sobre TEMA?',
+      '¿Qué evidencia tengo? ¿Qué evidencia falta?',
+      '¿Cuáles son las implicaciones si estoy en lo correcto?',
+      '¿Cuáles son las implicaciones si estoy equivocado?',
+      '¿Por qué esto es importante? ¿Para quién?',
+      '¿Qué estoy asumiendo que no he verificado?',
+      '¿Cómo podría alguien ver esto de manera completamente diferente?',
+    ],
+  },
+];
 
 // TÉCNICAS DE CREATIVIDAD - ANTIGUAS Y MODERNAS
 const creativityTechniques: CreativityTechnique[] = [
@@ -466,7 +671,7 @@ export default function Home() {
   const [ideas, setIdeas] = useState<Idea[]>([]);
   const [userInput, setUserInput] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'generate' | 'techniques'>('generate');
+  const [activeTab, setActiveTab] = useState<'generate' | 'techniques' | 'reflection'>('generate');
   const [techniqueFilter, setTechniqueFilter] = useState<'all' | 'ancient' | 'modern'>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -474,12 +679,21 @@ export default function Home() {
   const [techniqueInput, setTechniqueInput] = useState('');
   const [generatedFromTechnique, setGeneratedFromTechnique] = useState<{text: string; description: string}[]>([]);
   const [expandedIdeaId, setExpandedIdeaId] = useState<string | null>(null);
+  
+  // Estados para Reflexión
+  const [selectedFramework, setSelectedFramework] = useState<ReflectionFramework | null>(null);
+  const [reflectionTopic, setReflectionTopic] = useState('');
+  const [generatedQuestions, setGeneratedQuestions] = useState<string[]>([]);
+  const [savedReflections, setSavedReflections] = useState<{question: string; answer: string; framework: string; topic: string}[]>([]);
+  const [currentAnswer, setCurrentAnswer] = useState<{[key: number]: string}>({});
 
   // Cargar y guardar ideas
   useEffect(() => {
     try {
       const saved = localStorage.getItem('blog-ideas-v4');
       if (saved) setIdeas(JSON.parse(saved));
+      const savedRef = localStorage.getItem('blog-reflections-v1');
+      if (savedRef) setSavedReflections(JSON.parse(savedRef));
     } catch (e) { console.error(e); }
   }, []);
 
@@ -488,6 +702,12 @@ export default function Home() {
       localStorage.setItem('blog-ideas-v4', JSON.stringify(ideas));
     } catch (e) { console.error(e); }
   }, [ideas]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('blog-reflections-v1', JSON.stringify(savedReflections));
+    } catch (e) { console.error(e); }
+  }, [savedReflections]);
 
   const generateRandomIdea = (categoryName?: string) => {
     setIsGenerating(true);
@@ -551,6 +771,48 @@ export default function Home() {
     setIdeas(prev => [newIdea, ...prev]);
   };
 
+  // Funciones de Reflexión
+  const generateReflectionQuestions = () => {
+    if (!selectedFramework || !reflectionTopic.trim()) return;
+    setIsGenerating(true);
+    setTimeout(() => {
+      const questions = selectedFramework.questions.map(q => q.replace(/TEMA/g, reflectionTopic));
+      setGeneratedQuestions(questions);
+      setCurrentAnswer({});
+      setIsGenerating(false);
+    }, 300);
+  };
+
+  const saveReflection = (index: number, question: string) => {
+    const answer = currentAnswer[index];
+    if (!answer?.trim()) return;
+    setSavedReflections(prev => [...prev, {
+      question,
+      answer,
+      framework: selectedFramework?.name || '',
+      topic: reflectionTopic,
+    }]);
+    setCurrentAnswer(prev => ({...prev, [index]: ''}));
+  };
+
+  const convertReflectionToIdea = (reflection: {question: string; answer: string; framework: string; topic: string}) => {
+    const ideaText = `${reflection.topic}: ${reflection.answer.substring(0, 100)}${reflection.answer.length > 100 ? '...' : ''}`;
+    const category = detectCategory(reflection.topic);
+    const newIdea: Idea = {
+      id: generateId(),
+      text: ideaText,
+      description: `Reflexión usando ${reflection.framework}:\n\nPregunta: ${reflection.question}\n\nRespuesta: ${reflection.answer}`,
+      category: category.name,
+      emoji: '🧠',
+      isFavorite: false,
+      createdAt: new Date().toISOString(),
+      isUserIdea: true,
+      technique: reflection.framework,
+    };
+    setIdeas(prev => [newIdea, ...prev]);
+    setActiveTab('generate');
+  };
+
   const filteredIdeas = ideas.filter(idea => {
     const matchesSearch = idea.text.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = !selectedCategory || idea.category === selectedCategory;
@@ -569,20 +831,20 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="text-3xl md:text-4xl font-bold text-white">💡 Blog Ideas Generator Pro</h1>
-              <p className="text-white/70 mt-1">Técnicas de genios antiguos y modernos</p>
+              <p className="text-white/70 mt-1">Técnicas de genios + Preguntas de reflexión profunda</p>
             </div>
-            <div className="flex gap-4 text-sm">
-              <div className="bg-white/10 rounded-lg px-4 py-2 text-center">
-                <div className="text-2xl font-bold text-white">{ideas.length}</div>
-                <div className="text-white/60">Ideas</div>
+            <div className="flex gap-3 text-sm">
+              <div className="bg-white/10 rounded-lg px-3 py-2 text-center">
+                <div className="text-xl font-bold text-white">{ideas.length}</div>
+                <div className="text-white/60 text-xs">Ideas</div>
               </div>
-              <div className="bg-amber-500/20 rounded-lg px-4 py-2 text-center">
-                <div className="text-2xl font-bold text-amber-300">{ancientCount}</div>
-                <div className="text-amber-200/60">Antiguas</div>
+              <div className="bg-amber-500/20 rounded-lg px-3 py-2 text-center">
+                <div className="text-xl font-bold text-amber-300">{reflectionFrameworks.length}</div>
+                <div className="text-amber-200/60 text-xs">Frameworks</div>
               </div>
-              <div className="bg-cyan-500/20 rounded-lg px-4 py-2 text-center">
-                <div className="text-2xl font-bold text-cyan-300">{modernCount}</div>
-                <div className="text-cyan-200/60">Modernas</div>
+              <div className="bg-cyan-500/20 rounded-lg px-3 py-2 text-center">
+                <div className="text-xl font-bold text-cyan-300">{savedReflections.length}</div>
+                <div className="text-cyan-200/60 text-xs">Reflexiones</div>
               </div>
             </div>
           </div>
@@ -591,7 +853,7 @@ export default function Home() {
 
       <div className="max-w-6xl mx-auto px-4 py-6">
         {/* Tabs */}
-        <div className="flex gap-2 mb-6">
+        <div className="flex gap-2 mb-6 flex-wrap">
           <button onClick={() => setActiveTab('generate')}
             className={`px-5 py-3 rounded-xl font-medium transition-all ${activeTab === 'generate' ? 'bg-white text-purple-700 shadow-lg' : 'bg-white/10 text-white hover:bg-white/20'}`}>
             🎲 Generador
@@ -599,6 +861,11 @@ export default function Home() {
           <button onClick={() => setActiveTab('techniques')}
             className={`px-5 py-3 rounded-xl font-medium transition-all ${activeTab === 'techniques' ? 'bg-white text-purple-700 shadow-lg' : 'bg-white/10 text-white hover:bg-white/20'}`}>
             🧠 Técnicas ({creativityTechniques.length})
+          </button>
+          <button onClick={() => setActiveTab('reflection')}
+            className={`px-5 py-3 rounded-xl font-medium transition-all flex items-center gap-2 ${activeTab === 'reflection' ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg' : 'bg-white/10 text-white hover:bg-white/20'}`}>
+            🚀 Reflexión Profunda
+            <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">NUEVO</span>
           </button>
         </div>
 
@@ -667,7 +934,7 @@ export default function Home() {
                           </button>
                           {expandedIdeaId === idea.id && (
                             <div className="mt-2 p-3 bg-purple-50 rounded-lg border border-purple-100">
-                              <p className="text-gray-700 text-sm">{idea.description}</p>
+                              <p className="text-gray-700 text-sm whitespace-pre-wrap">{idea.description}</p>
                               <p className="text-xs text-gray-400 mt-1">{idea.description.length} caracteres</p>
                             </div>
                           )}
@@ -806,7 +1073,204 @@ export default function Home() {
           </>
         )}
 
-        <p className="text-center text-white/60 mt-8 pb-8">Hecho con 💜 en VibeCoding Bootcamp</p>
+        {/* Tab: Reflexión Profunda - NUEVO */}
+        {activeTab === 'reflection' && (
+          <>
+            {/* Header del módulo */}
+            <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 rounded-2xl shadow-2xl p-6 mb-6 text-white">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center text-4xl">
+                  🧠
+                </div>
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold">Preguntas de Reflexión Profunda</h2>
+                  <p className="text-white/80">Los frameworks mentales de Elon Musk, Jeff Bezos, Charlie Munger y más</p>
+                </div>
+              </div>
+              <p className="text-white/90">
+                No te damos títulos. Te damos las <strong>preguntas que te harán pensar</strong> como los grandes innovadores.
+                Responde estas preguntas y tus propias ideas emergerán con autenticidad y profundidad.
+              </p>
+            </div>
+
+            {/* Grid de Frameworks */}
+            <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-6 mb-6">
+              <h3 className="text-xl font-bold text-gray-800 mb-4">🎯 Elige un Framework Mental</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {reflectionFrameworks.map((framework) => (
+                  <div 
+                    key={framework.id}
+                    onClick={() => { setSelectedFramework(framework); setGeneratedQuestions([]); setReflectionTopic(''); }}
+                    className={`p-5 rounded-xl cursor-pointer transition-all hover:shadow-lg border-2 ${
+                      selectedFramework?.id === framework.id 
+                        ? 'border-orange-500 bg-orange-50 shadow-lg' 
+                        : 'border-gray-200 hover:border-gray-300 bg-white'
+                    }`}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${framework.color} flex items-center justify-center text-2xl shadow-md flex-shrink-0`}>
+                        {framework.emoji}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-bold text-gray-800 text-lg leading-tight">{framework.name}</h4>
+                        <p className="text-sm text-gray-500 mt-1">{framework.creator}</p>
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {framework.usedBy.slice(0, 3).map((person, i) => (
+                            <span key={i} className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">
+                              {person}
+                            </span>
+                          ))}
+                        </div>
+                        <p className="text-sm text-gray-600 mt-2 line-clamp-2">{framework.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Framework Seleccionado */}
+            {selectedFramework && (
+              <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-6 mb-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${selectedFramework.color} flex items-center justify-center text-3xl shadow-lg`}>
+                    {selectedFramework.emoji}
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-800">{selectedFramework.name}</h2>
+                    <p className="text-gray-500">{selectedFramework.creator}</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {selectedFramework.usedBy.map((person, i) => (
+                        <span key={i} className="text-xs px-2 py-1 bg-gradient-to-r from-amber-100 to-orange-100 text-orange-700 rounded-full font-medium">
+                          👤 {person}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 rounded-xl p-4 mb-6">
+                  <p className="text-gray-700">{selectedFramework.description}</p>
+                </div>
+
+                {/* Input de tema */}
+                <div className="mb-6">
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    📝 ¿Sobre qué tema quieres reflexionar?
+                  </label>
+                  <div className="flex flex-col md:flex-row gap-3">
+                    <input 
+                      type="text" 
+                      value={reflectionTopic}
+                      onChange={(e) => setReflectionTopic(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && generateReflectionQuestions()}
+                      placeholder="Ej: emprender un negocio, cambiar de carrera, aprender a programar..."
+                      className="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-orange-500 focus:outline-none text-lg"
+                    />
+                    <button 
+                      onClick={generateReflectionQuestions}
+                      disabled={!reflectionTopic.trim() || isGenerating}
+                      className={`px-6 py-3 bg-gradient-to-r ${selectedFramework.color} text-white font-bold rounded-xl disabled:opacity-50 hover:opacity-90 transition-opacity`}
+                    >
+                      {isGenerating ? '⚙️ Generando...' : '🚀 Generar Preguntas'}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Preguntas Generadas */}
+                {generatedQuestions.length > 0 && (
+                  <div className="space-y-4">
+                    <h3 className="font-bold text-gray-800 text-xl flex items-center gap-2">
+                      ✨ Preguntas para reflexionar sobre "{reflectionTopic}"
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      Responde cada pregunta con honestidad. Tus respuestas se convertirán en contenido auténtico.
+                    </p>
+                    
+                    {generatedQuestions.map((question, i) => (
+                      <div key={i} className="bg-gradient-to-r from-gray-50 to-white p-5 rounded-xl border-2 border-gray-100">
+                        <div className="flex items-start gap-3 mb-3">
+                          <span className={`w-8 h-8 rounded-lg bg-gradient-to-br ${selectedFramework.color} text-white flex items-center justify-center text-sm font-bold flex-shrink-0`}>
+                            {i + 1}
+                          </span>
+                          <p className="text-gray-800 font-medium text-lg leading-relaxed">{question}</p>
+                        </div>
+                        
+                        <textarea
+                          value={currentAnswer[i] || ''}
+                          onChange={(e) => setCurrentAnswer(prev => ({...prev, [i]: e.target.value}))}
+                          placeholder="Escribe tu reflexión aquí... Sé honesto y profundo."
+                          className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-orange-400 focus:outline-none resize-none text-gray-700"
+                          rows={3}
+                        />
+                        
+                        {currentAnswer[i]?.trim() && (
+                          <div className="flex justify-between items-center mt-3">
+                            <span className="text-xs text-gray-400">{currentAnswer[i]?.length || 0} caracteres</span>
+                            <button
+                              onClick={() => saveReflection(i, question)}
+                              className="px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition-colors"
+                            >
+                              💾 Guardar Reflexión
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Reflexiones Guardadas */}
+            {savedReflections.length > 0 && (
+              <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-6 mb-6">
+                <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                  💎 Tus Reflexiones Guardadas ({savedReflections.length})
+                </h3>
+                <div className="space-y-4 max-h-[400px] overflow-y-auto">
+                  {savedReflections.map((ref, i) => (
+                    <div key={i} className="bg-gradient-to-r from-amber-50 to-orange-50 p-5 rounded-xl border border-orange-200">
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
+                        <span className="text-xs px-2 py-1 bg-orange-100 text-orange-700 rounded-full font-medium">
+                          {ref.framework}
+                        </span>
+                        <span className="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full">
+                          {ref.topic}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 text-sm mb-2 italic">"{ref.question}"</p>
+                      <p className="text-gray-800">{ref.answer}</p>
+                      <div className="flex justify-end mt-3">
+                        <button
+                          onClick={() => convertReflectionToIdea(ref)}
+                          className="px-4 py-2 bg-purple-500 text-white text-sm font-medium rounded-lg hover:bg-purple-600 transition-colors"
+                        >
+                          📝 Convertir en Idea de Blog
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Quote inspiracional */}
+            <div className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl shadow-lg p-6 text-white">
+              <div className="flex items-start gap-4">
+                <div className="text-4xl">"</div>
+                <div>
+                  <p className="text-lg italic mb-3">
+                    "I think it's very important to have a feedback loop, where you're constantly thinking about what you've done and how you could be doing it better."
+                  </p>
+                  <p className="text-white/60 font-medium">— Elon Musk</p>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        <p className="text-center text-white/60 mt-8 pb-8">Hecho con 💜 en VibeCoding Bootcamp • Powered by First Principles Thinking</p>
       </div>
     </main>
   );
